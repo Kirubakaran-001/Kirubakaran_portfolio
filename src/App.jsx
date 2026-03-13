@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Mail, Github, Linkedin, ExternalLink, Cpu, Code, Radio, Zap, ChevronRight, GraduationCap, CircuitBoard, MonitorSmartphone } from 'lucide-react';
 import './index.css';
 import logoImg from './assets/kk-logo.jpg';
+import BackgroundDragon from './BackgroundDragon';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -376,6 +377,7 @@ const PacmanMessage = ({ message, onComplete }) => {
 function App() {
   const [loading, setLoading] = useState(true);
   const [showPacman, setShowPacman] = useState(false);
+  const [fireBreathing, setFireBreathing] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -384,8 +386,17 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleContactSubmit = () => {
+    setShowPacman(true);
+    setFireBreathing(true);
+    setTimeout(() => {
+      setFireBreathing(false);
+    }, 2000);
+  };
+
   return (
     <>
+      <BackgroundDragon fireBreathing={fireBreathing} />
       {loading && <LoadingScreen />}
       {showPacman && (
         <PacmanMessage
@@ -399,7 +410,7 @@ function App() {
         <About />
         <Projects />
         <Skills />
-        <Contact onFormSubmit={() => setShowPacman(true)} />
+        <Contact onFormSubmit={handleContactSubmit} />
         <Footer />
       </div>
     </>
